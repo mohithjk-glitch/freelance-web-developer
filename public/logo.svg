@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" role="img" aria-labelledby="title">
+  <title id="title">Mohith</title>
+  <g fill="none" stroke="#a7866d" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="155" y="42" width="290" height="170" rx="12"/><path d="M185 70h230v112H185zM270 212v30m60-30v30m-82 10h104m-160-82h-45m45-32h-68m328 32h45m-45-32h68M110 84l-12-12H75m35 76l-14 14H60m390-90l12-12h23m-35 88l14 14h31"/>
+    <circle cx="65" cy="72" r="4"/><circle cx="50" cy="158" r="4"/><circle cx="535" cy="72" r="4"/><circle cx="550" cy="158" r="4"/>
+    <path d="M205 106h35l18-18h28l15 18h40l18-18h27l18 18h24M205 130h58l14 15h30l18-15h44l14 15h24M220 155h35l18-18h38l16 18h42l18-18h27M260 76l12 18m12-18l12 18m12-18l12 18m12-18l12 18m12-18l12 18M232 57v28m24-28v20m112-20v20m24-20v28"/>
+    <circle cx="300" cy="194" r="6"/>
+  </g>
+  <text x="300" y="320" text-anchor="middle" fill="#a7866d" font-family="Arial, sans-serif" font-size="52" font-weight="800" letter-spacing="5">MOHITH</text>
+</svg>

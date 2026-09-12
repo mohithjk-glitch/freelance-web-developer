@@ -32,8 +32,7 @@ function App() {
         body: JSON.stringify({ ...formData, _captcha: false }),
       })
 
-      const result = await response.json().catch(() => null)
-      if (!response.ok || result?.success === false) throw new Error('Message delivery failed')
+      if (!response.ok) throw new Error('Message delivery failed')
       form.reset()
       setFormState('sent')
     } catch {

@@ -19,8 +19,6 @@ function App() {
   async function handleContactSubmit(event) {
     event.preventDefault()
     setFormState('sending')
-    const form = event.currentTarget
-    const formData = Object.fromEntries(new FormData(form))
 
     try {
       const response = await fetch(`https://formsubmit.co/ajax/${config.email}`, {
@@ -29,17 +27,14 @@ function App() {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ ...formData, _captcha: false }),
+        body: JSON.stringify(Object.fromEntries(new FormData(event.currentTarget))),
       })
 
       if (!response.ok) throw new Error('Message delivery failed')
-      form.reset()
+      event.currentTarget.reset()
       setFormState('sent')
     } catch {
-      const subject = encodeURIComponent('New portfolio enquiry')
-      const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\n\n${formData.message}`)
-      window.location.href = `mailto:${config.email}?subject=${subject}&body=${body}`
-      setFormState('fallback')
+      setFormState('error')
     }
   }
 
@@ -114,9 +109,9 @@ function App() {
 
         <section className="process-section" id="process"><div className="container reveal"><div className="section-kicker">04 / Process</div><div className="section-heading"><h2>How ideas become<br /><em>websites.</em></h2><p>A thoughtful process keeps the work clear, collaborative and moving forward.</p></div><div className="process-grid">{[['01', 'Discover', 'Understand your goals, audience and the opportunity.'], ['02', 'Design', 'Find the visual direction and structure that fits.'], ['03', 'Develop', 'Build the responsive experience with care.'], ['04', 'Launch', 'Test, refine and make it ready for the world.']].map(([number, title, copy]) => <article key={number}><span>{number}</span><h3>{title}</h3><p>{copy}</p></article>)}</div></div></section>
 
-        <section className="stats container reveal"><div><strong>10<span>+</span></strong><small>Projects built</small></div><div><strong>100<span>%</span></strong><small>Responsive</small></div><div><strong>24<span>/7</span></strong><small>Curious mind</small></div><div><strong>∞</strong><small>Possibilities</small></div></section>
+        <section className="stats container reveal"><div><strong>126<span>+</span></strong><small>Projects built</small></div><div><strong>100<span>%</span></strong><small>Responsive</small></div><div><strong>24<span>/7</span></strong><small>Curious mind</small></div><div><strong>∞</strong><small>Possibilities</small></div></section>
 
-        <section className="contact-section" id="contact"><div className="container reveal"><div className="section-kicker">05 / Contact</div><div className="contact-grid"><div><h2>Have a good<br /><em>idea?</em></h2><p>Let's turn it into something people remember.</p><div className="contact-details"><a href={`mailto:${config.email}`}>{config.email} <Arrow /></a><span>{config.whatsapp}</span></div></div><form onSubmit={handleContactSubmit}><input type="hidden" name="_subject" value="New portfolio enquiry" /><input type="hidden" name="_template" value="table" /><label>Name<input required name="name" placeholder="Your name" /></label><label>Email<input required type="email" name="email" placeholder="you@company.com" /></label><label>Phone number<input required type="tel" name="phone" placeholder="Your phone number" /></label><label>Tell me a little about it<textarea required name="message" rows="3" placeholder="A new website, a refresh, a wild idea..." /></label><button className="button button-light" type="submit" disabled={formState === 'sending'}>{formState === 'sending' ? 'Sending...' : formState === 'sent' ? 'Message sent' : 'Send a message'} <Arrow /></button>{formState === 'fallback' && <p className="form-status" role="status">Your email app is opening. Please send the prepared message there.</p>}{formState === 'sent' && <p className="form-status" role="status">Thanks, I’ll get back to you soon.</p>}</form></div></div></section>
+        <section className="contact-section" id="contact"><div className="container reveal"><div className="section-kicker">05 / Contact</div><div className="contact-grid"><div><h2>Have a good<br /><em>idea?</em></h2><p>Let's turn it into something people remember.</p><div className="contact-details"><a href={`mailto:${config.email}`}>{config.email} <Arrow /></a><span>{config.whatsapp}</span></div></div><form onSubmit={handleContactSubmit}><input type="hidden" name="_subject" value="New portfolio enquiry" /><input type="hidden" name="_template" value="table" /><label>Name<input required name="name" placeholder="Your name" /></label><label>Email<input required type="email" name="email" placeholder="you@company.com" /></label><label>Phone number<input required type="tel" name="phone" placeholder="Your phone number" /></label><label>Tell me a little about it<textarea required name="message" rows="3" placeholder="A new website, a refresh, a wild idea..." /></label><button className="button button-light" type="submit" disabled={formState === 'sending'}>{formState === 'sending' ? 'Sending...' : formState === 'sent' ? 'Message sent' : 'Send a message'} <Arrow /></button>{formState === 'error' && <p className="form-status form-status-error" role="alert">Something went wrong. Please email me directly.</p>}{formState === 'sent' && <p className="form-status" role="status">Thanks, I’ll get back to you soon.</p>}</form></div></div></section>
       </main>
 
       <footer className="footer container"><a className="wordmark" href="#top"><Logo /></a><p>Designing digital experiences,<br />one website at a time.</p><div className="footer-links">{Object.entries(config.socials).map(([name, url]) => <a href={url} key={name} target="_blank" rel="noreferrer">{name}</a>)}</div><small>© 2026 Mohith. All rights reserved.</small></footer>
